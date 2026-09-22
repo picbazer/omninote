@@ -28,10 +28,18 @@ class OmniNoteViewModel(
     private val _uiState = MutableStateFlow(OmniNoteUiState())
     val uiState: StateFlow<OmniNoteUiState> = _uiState.asStateFlow()
 
+    private var hasAttemptedSeed = false
+
     init {
         // Collect notes from Room database reactively
         viewModelScope.launch {
             repository.allNotes.collect { notesList ->
+                if (notesList.isEmpty() && !hasAttemptedSeed) {
+                    hasAttemptedSeed = true
+                    populateSampleNotes()
+                    return@collect
+                }
+
                 _uiState.update { current ->
                     val filtered = filterNotes(notesList, current.searchQuery)
                     current.copy(
