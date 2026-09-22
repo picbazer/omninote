@@ -1,0 +1,6 @@
+{
+  "name": "OmniNote AI",
+  "description": "AI-powered notebook with PDF text extraction and grounded document chat inspired by NotebookLM.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
